@@ -14,7 +14,7 @@ VIDEO -
 - qb_target
 
 # RESOURCES
-MLO - 
+MLO - https://forum.cfx.re/t/paid-mlo-the-black-lantern-bar/4771025
 
 # INSTALLATION
 - Start after [qb]
