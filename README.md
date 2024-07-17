@@ -6,7 +6,7 @@
 DISCORD - https://discord.gg/hya9t8XfH8
 
 # VIDEO SHOWCASE
-VIDEO - 
+VIDEO - https://www.youtube.com/watch?v=xbtzloU-UJE
 
 # DEPENDENCIES
 - qb-core
