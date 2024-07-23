@@ -1,23 +1,46 @@
 local QBCore = exports['qb-core']:GetCoreObject()
+local ox_inventory = exports.ox_inventory
 
-exports['qb-target']:AddBoxZone("BlackLanternCookMenu", vector3(1650.22, 4846.38, 42.03), 0.9, 0.9, {
-    name = "BlackLanternCookMenu",
-    heading = 300.45,
-    debugPoly = false,
-    minZ = 42.03 - 2,
-    maxZ = 42.03 + 2,
-}, {
-    options = {
-        {
-            type = "client",
-            event = "bd-blacklanternjob:client:OpenCookMenu",
-            icon = "fa-solid fa-fire-burner",
-            label = "Cook Menu",
-            job = Config.Jobname,
+if Config.InventorySystem == 'ox' then
+    ----- | COOK MENU TARGET | -----
+    exports.ox_target:addBoxZone({
+		coords = vector4(1650.22, 4846.38, 42.03, 300.45),
+		size = vec3(1, 1, 1),
+		rotation = 45,
+		debug = drawZones,
+		options = {
+			{
+				name = 'blacklantern_cookmenu',
+				event = 'bd-blacklanternjob:client:OpenCookMenu',
+				icon = 'fa-solid fa-equals',
+				label = 'Cook Menu',
+                groups = {
+                    blacklantern = 0
+                },
+			},
+		}
+	})
+elseif Config.InventorySystem == 'qb' then
+    ----- | COOK MENU TARGET | -----
+    exports['qb-target']:AddBoxZone("BlackLanternCookMenu", vector3(1650.22, 4846.38, 42.03), 0.9, 0.9, {
+        name = "BlackLanternCookMenu",
+        heading = 300.45,
+        debugPoly = false,
+        minZ = 42.03 - 2,
+        maxZ = 42.03 + 2,
+    }, {
+        options = {
+            {
+                type = "client",
+                event = "bd-blacklanternjob:client:OpenCookMenu",
+                icon = "fa-solid fa-fire-burner",
+                label = "Cook Menu",
+                job = Config.Jobname,
+            },
         },
-    },
-    distance = 1.5
-})
+        distance = 1.5
+    })
+end
 
 lib.registerContext({
     id = 'blacklantern_cook',
@@ -35,11 +58,9 @@ lib.registerContext({
         },
     },
 })
-
 RegisterNetEvent('bd-blacklanternjob:client:OpenCookMenu', function()
     lib.showContext('blacklantern_cook')
 end)
-
 lib.registerContext({
     id = 'blacklantern_meals',
     title = 'Meal Menu',
@@ -68,7 +89,6 @@ lib.registerContext({
         },
     },
 })
-
 lib.registerContext({
     id = 'blacklantern_snacks',
     title = 'Snack Menu',
@@ -125,7 +145,6 @@ lib.registerContext({
         },
     },
 })
-
 RegisterNetEvent('bd-blacklanternjob:client:makeSpecialOmelette', function()
     if lib.progressCircle({
         duration = 1250,

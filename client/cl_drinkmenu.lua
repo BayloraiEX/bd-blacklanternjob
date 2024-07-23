@@ -1,23 +1,45 @@
 local QBCore = exports['qb-core']:GetCoreObject()
+local ox_inventory = exports.ox_inventory
 
-exports['qb-target']:AddBoxZone("BlackLanternDrinkMenu", vector3(1652.46, 4846.6, 42.03), 0.9, 0.9, {
-    name = "BlackLanternDrinkMenu",
-    heading = 300.45,
-    debugPoly = false,
-    minZ = 42.03 - 2,
-    maxZ = 42.03 + 2,
-}, {
-    options = {
-        {
-            type = "client",
-            event = "bd-blacklanternjob:client:OpenDrinkMenu",
-            icon = "fa-solid fa-faucet",
-            label = "Drink Menu",
-            job = Config.Jobname,
+if Config.InventorySystem == 'ox' then
+    exports.ox_target:addBoxZone({
+		coords = vector4(1652.46, 4846.6, 42.03, 300.45),
+		size = vec3(1, 1, 1),
+		rotation = 45,
+		debug = drawZones,
+		options = {
+			{
+				name = 'blacklantern_drinkmenu',
+				event = 'bd-blacklanternjob:client:OpenDrinkMenu',
+				icon = 'fa-solid fa-equals',
+				label = 'Drink Menu',
+                groups = {
+                    blacklantern = 0
+                },
+			},
+		}
+	})
+elseif Config.InventorySystem == 'qb' then
+    ----- | DRINK MENU TARGET | -----
+    exports['qb-target']:AddBoxZone("BlackLanternDrinkMenu", vector3(1652.46, 4846.6, 42.03), 0.9, 0.9, {
+        name = "BlackLanternDrinkMenu",
+        heading = 300.45,
+        debugPoly = false,
+        minZ = 42.03 - 2,
+        maxZ = 42.03 + 2,
+    }, {
+        options = {
+            {
+                type = "client",
+                event = "bd-blacklanternjob:client:OpenDrinkMenu",
+                icon = "fa-solid fa-faucet",
+                label = "Drink Menu",
+                job = Config.Jobname,
+            },
         },
-    },
-    distance = 1.5
-})
+        distance = 1.5
+    })
+end
 
 lib.registerContext({
     id = 'blacklantern_drinks',
@@ -40,7 +62,6 @@ lib.registerContext({
         },
     },
 })
-
 RegisterNetEvent('bd-blacklanternjob:client:OpenDrinkMenu', function()
     lib.showContext('blacklantern_drinks')
 end)

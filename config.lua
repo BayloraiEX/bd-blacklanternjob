@@ -11,6 +11,7 @@
                               |_|                             
 --]] 
 Config = {}
+Config.InventorySystem = 'ox' -- Supports 'qb' & 'ox'
 
 Config.UseTarget = true -- True = Use Target  | False = Use Polyzones
 Config.Jobname = 'blacklantern' -- Job required to see target on ped
